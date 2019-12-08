@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{16259D7A-654F-4BB2-A273-58EF31E2DDD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "Src\ConsoleUI\ConsoleUI.csproj", "{EDE13630-37C1-4590-B0CE-50DB0700CD7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleAnswers", "Src\PuzzleAnswers\PuzzleAnswers.csproj", "{A29E2556-27D9-43A1-8C15-06AED31848D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDE13630-37C1-4590-B0CE-50DB0700CD7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDE13630-37C1-4590-B0CE-50DB0700CD7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDE13630-37C1-4590-B0CE-50DB0700CD7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDE13630-37C1-4590-B0CE-50DB0700CD7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29E2556-27D9-43A1-8C15-06AED31848D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29E2556-27D9-43A1-8C15-06AED31848D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29E2556-27D9-43A1-8C15-06AED31848D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29E2556-27D9-43A1-8C15-06AED31848D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EDE13630-37C1-4590-B0CE-50DB0700CD7D} = {16259D7A-654F-4BB2-A273-58EF31E2DDD2}
+		{A29E2556-27D9-43A1-8C15-06AED31848D2} = {16259D7A-654F-4BB2-A273-58EF31E2DDD2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6A284C6-61CC-4EE8-B679-CE8411EF3F35}
+	EndGlobalSection
+EndGlobal
