@@ -5,9 +5,14 @@ VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{16259D7A-654F-4BB2-A273-58EF31E2DDD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "Src\ConsoleUI\ConsoleUI.csproj", "{EDE13630-37C1-4590-B0CE-50DB0700CD7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "Src\ConsoleUI\ConsoleUI.csproj", "{EDE13630-37C1-4590-B0CE-50DB0700CD7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleAnswers", "Src\PuzzleAnswers\PuzzleAnswers.csproj", "{A29E2556-27D9-43A1-8C15-06AED31848D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleAnswers", "Src\PuzzleAnswers\PuzzleAnswers.csproj", "{A29E2556-27D9-43A1-8C15-06AED31848D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{597B1B2E-207F-49F5-BBA3-19657641B5AF}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
