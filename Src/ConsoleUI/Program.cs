@@ -1,5 +1,4 @@
-﻿using System;
-using static System.Console;
+﻿using static System.Console;
 
 namespace AdventOfCode2019.ConsoleUI
 {
@@ -13,17 +12,27 @@ namespace AdventOfCode2019.ConsoleUI
             WriteLine($"Sum of the fuel requirement (Modules): {PuzzleAnswers.Day1.Part1.GetResult()}");
             WriteLine("                --- Part Two ---                 ");
             WriteLine($"Sum of the fuel requirement (Modules + Fuel): {PuzzleAnswers.Day1.Part2.GetResult()}");
-            WriteLine("--- Day 2: 1202 Program Alarm ---");
+            WriteLine("        --- Day 2: 1202 Program Alarm ---        ");
             WriteLine("                --- Part One ---                 ");
             WriteLine($"Value left at position [0]: {PuzzleAnswers.Day2.Part1.GetResult()}");
             WriteLine("                --- Part Two ---                 ");
             var day2part2 = PuzzleAnswers.Day2.Part2.GetResult();
             WriteLine($"100 * noun({day2part2.Item1}) + verb({day2part2.Item2}): {100 * day2part2.Item1 + day2part2.Item2}");
-            WriteLine("--- Day 3: Crossed Wires ---");
+            WriteLine("           --- Day 3: Crossed Wires ---          ");
             WriteLine("                --- Part One ---                 ");
             WriteLine($"Manhattan distance from central port to closest intersection: {PuzzleAnswers.Day3.Part1.GetResult()}");
             WriteLine("                --- Part Two ---                 ");
             WriteLine($"Fewest combined steps to reach intersection: {PuzzleAnswers.Day3.Part2.GetResult()}");
+            WriteLine("         --- Day 4: Secure Container ---         ");
+            WriteLine("                --- Part One ---                 ");
+            WriteLine($"Number of different passwords: {PuzzleAnswers.Day4.Part1.GetResult()}");
+            WriteLine("                --- Part Two ---                 ");
+            WriteLine($"Number of different passwords: {PuzzleAnswers.Day4.Part2.GetResult()}");
+            WriteLine(" --- Day 5: Sunny with a Chance of Asteroids --- ");
+            //WriteLine("                --- Part One ---                 ");
+            //WriteLine($"Diagnostic code (ID=1): {PuzzleAnswers.Day5.Part1.GetResult()}");
+            WriteLine("                --- Part Two ---                 ");
+            WriteLine($"Diagnostic code (ID=5): {PuzzleAnswers.Day5.Part2.GetResult()}");
         }
     }
 }
