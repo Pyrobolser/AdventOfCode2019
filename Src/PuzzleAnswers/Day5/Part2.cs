@@ -68,8 +68,7 @@ namespace AdventOfCode2019.PuzzleAnswers.Day5
                         Instructions = new string[2] { "0", "0" };
                         break;
                     default:
-                        Instructions = null;
-                        break;
+                        return;
                 }
 
                 // Parameters mode
