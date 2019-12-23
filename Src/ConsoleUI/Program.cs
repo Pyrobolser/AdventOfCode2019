@@ -31,8 +31,12 @@ namespace AdventOfCode2019.ConsoleUI
             WriteLine(" --- Day 5: Sunny with a Chance of Asteroids --- ");
             //WriteLine("                --- Part One ---                 ");
             //WriteLine($"Diagnostic code (ID=1): {PuzzleAnswers.Day5.Part1.GetResult()}");
+            //WriteLine("                --- Part Two ---                 ");
+            //WriteLine($"Diagnostic code (ID=5): {PuzzleAnswers.Day5.Part2.GetResult()}");
+            WriteLine("       --- Day 6: Universal Orbit Map ---        ");
+            WriteLine("                --- Part One ---                 ");
+            WriteLine($"Number of direct/indirect orbits: {PuzzleAnswers.Day6.Part1.GetResult()}");
             WriteLine("                --- Part Two ---                 ");
-            WriteLine($"Diagnostic code (ID=5): {PuzzleAnswers.Day5.Part2.GetResult()}");
         }
     }
 }
