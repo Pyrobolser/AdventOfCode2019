@@ -37,6 +37,12 @@ namespace AdventOfCode2019.ConsoleUI
             WriteLine("                --- Part One ---                 ");
             WriteLine($"Number of direct/indirect orbits: {PuzzleAnswers.Day6.Part1.GetResult()}");
             WriteLine("                --- Part Two ---                 ");
+            WriteLine($"Minimum number of orbital transfers: {PuzzleAnswers.Day6.Part2.GetResult()}");
+            WriteLine("      --- Day 7: Amplification Circuit ---       ");
+            WriteLine("                --- Part One ---                 ");
+            WriteLine($"Highest signal that can be sent to the thrusters: {PuzzleAnswers.Day7.Part1.GetResult()}");
+            WriteLine("                --- Part Two ---                 ");
+            //WriteLine($"Minimum number of orbital transfers: {PuzzleAnswers.Day6.Part2.GetResult()}");
         }
     }
 }

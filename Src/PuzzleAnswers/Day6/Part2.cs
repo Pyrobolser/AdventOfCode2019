@@ -22,6 +22,45 @@ namespace AdventOfCode2019.PuzzleAnswers.Day6
             public SpaceObject Orbits { get; set; }
             public HashSet<SpaceObject> OrbitedBy { get; }
 
+            public static int TransfersBetween(SpaceObject start, SpaceObject end)
+            {
+                int leftSteps = -1, rightSteps = -1;
+                HashSet<SpaceObject> chartedSpace = new HashSet<SpaceObject>();
+                HashSet<SpaceObject> lefts = new HashSet<SpaceObject> { start };
+                HashSet<SpaceObject> rights = new HashSet<SpaceObject> { end };
+
+                while (rights.Intersect(lefts).Count() == 0)
+                {
+                    var tempLefts = new HashSet<SpaceObject>();
+                    var tempRights = new HashSet<SpaceObject>();
+                    chartedSpace.UnionWith(lefts);
+                    chartedSpace.UnionWith(rights);
+
+                    foreach (var left in lefts)
+                    {
+                        tempLefts.UnionWith(left.OrbitedBy);
+                        tempLefts.Add(left.Orbits);
+
+                        tempLefts.ExceptWith(chartedSpace);
+                    }
+                    leftSteps++;
+
+                    foreach(var right in rights)
+                    {
+                        tempRights.UnionWith(right.OrbitedBy);
+                        tempRights.Add(right.Orbits);
+
+                        tempRights.ExceptWith(chartedSpace);
+                    }
+                    rightSteps++;
+
+                    lefts = tempLefts;
+                    rights = tempRights;
+                }
+
+                return leftSteps + rightSteps;
+            }
+
             public int FindAllOrbits()
             {
                 var orbits = -1;
@@ -56,21 +95,6 @@ namespace AdventOfCode2019.PuzzleAnswers.Day6
         public static int GetResult()
         {
             var input = File.ReadAllLines("Inputs/Day6.txt").Select(s => s.Split(')'));
-
-            //input = new string[]
-            //{
-            //    "COM)B",
-            //    "B)C",
-            //    "C)D",
-            //    "D)E",
-            //    "E)F",
-            //    "B)G",
-            //    "G)H",
-            //    "D)I",
-            //    "E)J",
-            //    "J)K",
-            //    "K)L"
-            //}.Select(s => s.Split(')'));
 
             var space = new HashSet<SpaceObject>();
             SpaceObject left, right;
@@ -110,7 +134,10 @@ namespace AdventOfCode2019.PuzzleAnswers.Day6
                 }
             }
 
-            return space.Sum(so => so.FindAllOrbits());
+            var me = space.FirstOrDefault(so => so.Name == "YOU");
+            var santa = space.FirstOrDefault(so => so.Name == "SAN");
+
+            return SpaceObject.TransfersBetween(me, santa);
         }
     }
 }
