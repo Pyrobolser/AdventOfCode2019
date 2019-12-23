@@ -19,12 +19,18 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
 
             public string Opcode { get; private set; }
 
-            public IntcodeComputer(int[] memory)
+            public bool IsPhaseSetting { get; }
+
+            public int AmplifierIndex { get; }
+
+            public IntcodeComputer(int[] memory, int amplifierIndex)
             {
                 Memory = memory;
                 IsOver = false;
                 OutputValue = -1;
                 Pointer = 0;
+                IsPhaseSetting = true;
+                AmplifierIndex = amplifierIndex;
             }
 
             public int Compute()
