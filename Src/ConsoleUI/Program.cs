@@ -42,7 +42,7 @@ namespace AdventOfCode2019.ConsoleUI
             //WriteLine("                --- Part One ---                 ");
             //WriteLine($"Highest signal that can be sent to the thrusters: {PuzzleAnswers.Day7.Part1.GetResult()}");
             WriteLine("                --- Part Two ---                 ");
-            WriteLine($"Highest signal that can be sent to the thrusters: {PuzzleAnswers.Day7.Part2.GetResult()}");
+            WriteLine($"Highest signal that can be sent to the thrusters: {PuzzleAnswers.Day7.Part2.GetResult().Result}");
         }
     }
 }

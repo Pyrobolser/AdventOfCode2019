@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Channels;
+using System.Threading.Tasks;
 
 namespace AdventOfCode2019.PuzzleAnswers.Day7
 {
@@ -8,6 +10,8 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
     {
         internal class IntcodeComputer
         {
+            public string Name { get; private set; }
+
             public int[] Memory { get; set; }
 
             public string[] Instructions { get; private set; }
@@ -20,29 +24,25 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
 
             public string Opcode { get; private set; }
 
-            public bool IsPhaseSetting { get; private set;  }
+            public Channel<int> Inputs { get; set; }
 
-            public int PhaseSetting { get; }
+            public Channel<int> Outputs { get; set; }
 
-            public int InputSignal { get; }
-
-            public IntcodeComputer(int[] memory, int phaseSetting, int inputSignal)
+            public IntcodeComputer(int[] memory, string name)
             {
+                Name = name;
                 Memory = memory;
                 IsOver = false;
                 OutputValue = -1;
                 Pointer = 0;
-                IsPhaseSetting = true;
-                PhaseSetting = phaseSetting;
-                InputSignal = inputSignal;
             }
 
-            public int Compute()
+            public async Task<int> Compute()
             {
                 while (!IsOver)
                 {
                     GetParameters();
-                    ComputeInstruction();
+                    await ComputeInstruction();
                 }
 
                 return OutputValue;
@@ -91,7 +91,7 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
                 }
             }
 
-            private void ComputeInstruction()
+            private async Task ComputeInstruction()
             {
                 switch (Opcode)
                 {
@@ -102,10 +102,10 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
                         Mult();
                         break;
                     case "03":
-                        Input();
+                        await Input();
                         break;
                     case "04":
-                        Output();
+                        await Output();
                         break;
                     case "05":
                         JumpIfTrue();
@@ -159,21 +159,11 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
                 Pointer += Instructions.Length + 1;
             }
 
-            private void Input()
+            private async Task Input()
             {
-                int input;
-                if(IsPhaseSetting)
-                {
-                    input = PhaseSetting;
-                    Console.WriteLine($"Phase Setting : {input}");
-                    IsPhaseSetting = false;
-                }
-                else
-                {
-                    input = InputSignal;
-                    Console.WriteLine($"Input Signal: {input}");
-                }
+                var input = await Inputs.Reader.ReadAsync();
 
+                Console.WriteLine($"{Name} - Input: {input}");
                 if (Instructions[0] == "0")
                 {
                     Memory[Memory[Pointer + 1]] = input;
@@ -186,7 +176,7 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
                 Pointer += Instructions.Length + 1;
             }
 
-            private void Output()
+            private async Task Output()
             {
                 if (Instructions[0] == "0")
                 {
@@ -196,7 +186,8 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
                 {
                     OutputValue = Memory[Pointer + 1];
                 }
-                Console.WriteLine($"Output: {OutputValue}");
+                Console.WriteLine($"{Name} - Output: {OutputValue}");
+                await Outputs.Writer.WriteAsync(OutputValue);
 
                 Pointer += Instructions.Length + 1;
             }
@@ -332,29 +323,57 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
             }
         }
 
-        public static int GetResult()
+        public static async Task<int> GetResult()
         {
             int[] input = Array.ConvertAll(File.ReadAllText("Inputs/Day7.txt").Split(','), int.Parse);
 
             int[] phaseSettings = new int[] { 5, 6, 7, 8, 9 };
-            int result = 0, output;
+            int result = 0;
             IntcodeComputer ampA, ampB, ampC, ampD, ampE;
 
             foreach (var phaseSetting in IntcodeComputer.GetPhaseSettings(phaseSettings))
             {
-                ampA = new IntcodeComputer(input, phaseSetting[0], 0);
-                output = ampA.Compute();
-                ampB = new IntcodeComputer(input, phaseSetting[1], output);
-                output = ampB.Compute();
-                ampC = new IntcodeComputer(input, phaseSetting[2], output);
-                output = ampC.Compute();
-                ampD = new IntcodeComputer(input, phaseSetting[3], output);
-                output = ampD.Compute();
-                ampE = new IntcodeComputer(input, phaseSetting[4], output);
-                output = ampE.Compute();
+                // Create amplifiers
+                ampA = new IntcodeComputer(input, "Amplifier A")
+                {
+                    Outputs = Channel.CreateUnbounded<int>()
+                };
+                ampB = new IntcodeComputer(input, "Amplifier B")
+                {
+                    Inputs = ampA.Outputs,
+                    Outputs = Channel.CreateUnbounded<int>()
+                };
+                ampC = new IntcodeComputer(input, "Amplifier C")
+                {
+                    Inputs = ampB.Outputs,
+                    Outputs = Channel.CreateUnbounded<int>()
+                };
+                ampD = new IntcodeComputer(input, "Amplifier D")
+                {
+                    Inputs = ampC.Outputs,
+                    Outputs = Channel.CreateUnbounded<int>()
+                };
+                ampE = new IntcodeComputer(input, "Amplifier E")
+                {
+                    Inputs = ampD.Outputs,
+                    Outputs = Channel.CreateUnbounded<int>()
+                };
+                ampA.Inputs = ampE.Outputs;
 
-                if (output > result)
-                    result = output;
+                // Write phase settings
+                await ampA.Inputs.Writer.WriteAsync(phaseSettings[0]);
+                await ampB.Inputs.Writer.WriteAsync(phaseSettings[1]);
+                await ampC.Inputs.Writer.WriteAsync(phaseSettings[2]);
+                await ampD.Inputs.Writer.WriteAsync(phaseSettings[3]);
+                await ampE.Inputs.Writer.WriteAsync(phaseSettings[4]);
+
+                // Write init value
+                await ampA.Inputs.Writer.WriteAsync(0);
+
+                await Task.WhenAll(ampA.Compute(), ampB.Compute(), ampC.Compute(), ampD.Compute(), ampE.Compute());
+
+                if (ampE.OutputValue > result)
+                    result = ampE.OutputValue;
             }
 
             return result;
