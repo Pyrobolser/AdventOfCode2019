@@ -4,7 +4,7 @@ using System.IO;
 
 namespace AdventOfCode2019.PuzzleAnswers.Day7
 {
-    public static class Part1
+    public static class Part2
     {
         internal class IntcodeComputer
         {
@@ -336,7 +336,7 @@ namespace AdventOfCode2019.PuzzleAnswers.Day7
         {
             int[] input = Array.ConvertAll(File.ReadAllText("Inputs/Day7.txt").Split(','), int.Parse);
 
-            int[] phaseSettings = new int[] { 0, 1, 2, 3, 4 };
+            int[] phaseSettings = new int[] { 5, 6, 7, 8, 9 };
             int result = 0, output;
             IntcodeComputer ampA, ampB, ampC, ampD, ampE;
 
